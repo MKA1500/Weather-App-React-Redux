@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import SearchBar from '../containers/SearchBar';
 
 export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <p>the app</p>
+      <div className="App container">
+        <SearchBar />
       </div>
     );
   }
