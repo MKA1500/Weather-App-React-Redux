@@ -19,17 +19,17 @@ class SearchBar extends Component {
     }
 
     onCityInputChange(event) {
-        this.setState({ city: event.target.value });
+        this.setState({ city: event.target.value }, () => console.log(this.state));
     }
 
     onCountryCodeInputChange(event) {
-        this.setState({ countryCode: event.target.value });
+        this.setState({ countryCode: event.target.value }, () => console.log(this.state));
     }
 
     onFormSubmit(event) {
         event.preventDefault();
 
-        this.props.fetchWeather(this.state.term, this.state.countryCode);
+        this.props.fetchWeather(this.state.city, this.state.countryCode);
         this.setState({ city: '' });
     }
 
@@ -50,14 +50,20 @@ class SearchBar extends Component {
                     className="form-control country-code-field"
                     value={this.state.countryCode} 
                     onChange={this.onCountryCodeInputChange}>
+                    <option value="ar">Argentina</option>
                     <option value="be">Belgium</option>
                     <option value="cz">Czechia</option>
                     <option value="de">Germany</option>
                     <option value="in">India</option>
+                    <option value="it">Italy</option>
                     <option value="nl">Netherlands</option>
+                    <option value="ma">Morocco</option>
                     <option value="pl">Poland</option>
+                    <option value="za">South Africa</option>
+                    <option value="tw">Taiwan</option>
                     <option value="ua">Ukraine</option>
                     <option value="uk">United Kingdom</option>
+                    <option value="ve">Venezuela</option>
                 </select>
                 <button 
                     className="btn btn-primary" 
