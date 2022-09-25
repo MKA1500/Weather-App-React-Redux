@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 import './SearchBar.css';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
 
         this.state = { 
             city: '',
-            countryCode: ''
+            countryCode: 'be'
         };
 
         this.onCityInputChange = this.onCityInputChange.bind(this);
@@ -16,22 +19,18 @@ export default class SearchBar extends Component {
     }
 
     onCityInputChange(event) {
-        this.setState(
-            { city: event.target.value },
-            () => console.log(this.state)
-        );
+        this.setState({ city: event.target.value });
     }
 
     onCountryCodeInputChange(event) {
-        this.setState(
-            { countryCode: event.target.value },
-            () => console.log(this.state)
-        );
+        this.setState({ countryCode: event.target.value });
     }
 
     onFormSubmit(event) {
-        console.log('submit');
         event.preventDefault();
+
+        this.props.fetchWeather(this.state.term, this.state.countryCode);
+        this.setState({ city: '' });
     }
 
     convertCalvinToCelcius(degrees) {
@@ -52,16 +51,13 @@ export default class SearchBar extends Component {
                     value={this.state.countryCode} 
                     onChange={this.onCountryCodeInputChange}>
                     <option value="be">Belgium</option>
-                    <option value="br">Brazil</option>
                     <option value="cz">Czechia</option>
                     <option value="de">Germany</option>
                     <option value="in">India</option>
-                    <option value="il">Israel</option>
                     <option value="nl">Netherlands</option>
                     <option value="pl">Poland</option>
                     <option value="ua">Ukraine</option>
                     <option value="uk">United Kingdom</option>
-                    <option value="us">United States</option>
                 </select>
                 <button 
                     className="btn btn-primary" 
@@ -70,3 +66,9 @@ export default class SearchBar extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchWeather }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
