@@ -33,10 +33,6 @@ class SearchBar extends Component {
         this.setState({ city: '' });
     }
 
-    convertCalvinToCelcius(degrees) {
-        return degrees - 273.15;
-    }
-
     render() {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
