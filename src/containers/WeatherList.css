@@ -1,0 +1,4 @@
+.weather-table tr th,
+.weather-table tr td {
+    width: 25%;
+}

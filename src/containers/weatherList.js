@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Sparklines, SparklinesLine } from 'react-sparklines';
+import Chart from '../components/chart';
+import './WeatherList.css';
 
 class WeatherList extends Component {
     constructor(props) {
@@ -20,14 +21,20 @@ class WeatherList extends Component {
         const country = cityData.city.country;
         const id = cityData.city.id;
         const temps = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.temp));
+        const pressures = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.pressure));
+        const humidities = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.humidity));
         console.log('temps', temps);
         return (
             <tr key={id}>
                 <td>{name}, {country}</td>
                 <td>
-                    <Sparklines height={120} with={180} data={temps}>
-                        <SparklinesLine color="blue" />
-                    </Sparklines>
+                    <Chart data={temps} color="#dc3545" />
+                </td>
+                <td>
+                    <Chart data={pressures} color="#fd7e14" />
+                </td>
+                <td>
+                    <Chart data={humidities} color="#0d6efd" />
                 </td>
             </tr>
         );
@@ -35,7 +42,7 @@ class WeatherList extends Component {
 
     render() {
         return (
-            <table className="table table-hover">
+            <table className="table table-hover weather-table">
                 <thead>
                     <tr>
                         <th>City</th>
