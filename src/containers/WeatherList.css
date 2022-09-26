@@ -2,3 +2,7 @@
 .weather-table tr td {
     width: 25%;
 }
+
+.number-info {
+    font-weight: bold;
+}

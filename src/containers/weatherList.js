@@ -7,42 +7,45 @@ class WeatherList extends Component {
     constructor(props) {
         super(props);
 
-        this.convertCalvinToCelcius = this.convertCalvinToCelcius.bind(this);
+        this.convertKelvinToCelcius = this.convertKelvinToCelcius.bind(this);
     }
 
-    convertCalvinToCelcius(degrees) {
-        let temp = degrees - 273.15; // Calvins to Celcius
-        temp = Math.round(temp * 100) / 100; // round a number to 2 decimal places
+    convertKelvinToCelcius(degrees) {
+        let temp = degrees - 273.15; // Kalvins to Celcius
         return temp;
     }
 
     renderWeather(cityData) {
-        const name = cityData.city.name;
-        const country = cityData.city.country;
-        const id = cityData.city.id;
-        const temps = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.temp));
-        const pressures = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.pressure));
-        const humidities = cityData.list.map(weather => this.convertCalvinToCelcius(weather.main.humidity));
-        console.log('temps', temps);
-        return (
-            <tr key={id}>
-                <td>{name}, {country}</td>
-                <td>
-                    <Chart data={temps} color="#dc3545" />
-                </td>
-                <td>
-                    <Chart data={pressures} color="#fd7e14" />
-                </td>
-                <td>
-                    <Chart data={humidities} color="#0d6efd" />
-                </td>
-            </tr>
-        );
+        if (cityData && cityData.city && cityData.list) {
+            const name = cityData.city.name;
+            const country = cityData.city.country;
+            const id = cityData.city.id;
+            const temps = cityData.list.map(weather => this.convertKelvinToCelcius(weather.main.temp));
+            const pressures = cityData.list.map(weather => weather.main.pressure);
+            const humidities = cityData.list.map(weather => weather.main.humidity);
+            console.log('temps', temps);
+            return (
+                <tr key={id}>
+                    <td><strong>{name}, {country}</strong></td>
+                    <td>
+                        <Chart data={temps} units="°C" color="#dc3545" />
+                    </td>
+                    <td>
+                        <Chart data={pressures} units="hPa" color="#fd7e14" />
+                    </td>
+                    <td>
+                        <Chart data={humidities} units="%" color="#0d6efd" />
+                    </td>
+                </tr>
+            );
+        }
     }
 
     render() {
         return (
-            <table className="table table-hover weather-table">
+            <div>
+                <h4 className="py-2">5 days forecast</h4>
+                <table className="table table-hover weather-table">
                 <thead>
                     <tr>
                         <th>City</th>
@@ -55,6 +58,7 @@ class WeatherList extends Component {
                     {this.props.weather.map((cityData) => this.renderWeather(cityData))}
                 </tbody>
             </table>
+            </div>
         );
     }
 }

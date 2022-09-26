@@ -19,11 +19,11 @@ class SearchBar extends Component {
     }
 
     onCityInputChange(event) {
-        this.setState({ city: event.target.value }, () => console.log(this.state));
+        this.setState({ city: event.target.value });
     }
 
     onCountryCodeInputChange(event) {
-        this.setState({ countryCode: event.target.value }, () => console.log(this.state));
+        this.setState({ countryCode: event.target.value });
     }
 
     onFormSubmit(event) {
@@ -49,6 +49,7 @@ class SearchBar extends Component {
                     <option value="ar">Argentina</option>
                     <option value="be">Belgium</option>
                     <option value="cz">Czechia</option>
+                    <option value="ee">Estonia</option>
                     <option value="de">Germany</option>
                     <option value="in">India</option>
                     <option value="it">Italy</option>
@@ -59,6 +60,7 @@ class SearchBar extends Component {
                     <option value="tw">Taiwan</option>
                     <option value="ua">Ukraine</option>
                     <option value="uk">United Kingdom</option>
+                    <option value="us">United States</option>
                     <option value="ve">Venezuela</option>
                 </select>
                 <button 
