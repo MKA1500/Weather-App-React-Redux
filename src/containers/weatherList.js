@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Chart from '../components/chart';
+import MyGoogleMap from '../components/MyGoogleMap';
 import './WeatherList.css';
 
 class WeatherList extends Component {
@@ -46,18 +47,19 @@ class WeatherList extends Component {
             <div>
                 <h4 className="py-2">5 days forecast</h4>
                 <table className="table table-hover weather-table">
-                <thead>
-                    <tr>
-                        <th>City</th>
-                        <th>Temperature</th>
-                        <th>Pressure</th>
-                        <th>Humidity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.weather.map((cityData) => this.renderWeather(cityData))}
-                </tbody>
-            </table>
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Temperature</th>
+                            <th>Pressure</th>
+                            <th>Humidity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.weather.map((cityData) => this.renderWeather(cityData))}
+                    </tbody>
+                </table>
+                <MyGoogleMap />
             </div>
         );
     }
