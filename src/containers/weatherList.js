@@ -17,17 +17,22 @@ class WeatherList extends Component {
     }
 
     renderWeather(cityData) {
-        if (cityData && cityData.city && cityData.list) {
-            const name = cityData.city.name;
-            const country = cityData.city.country;
+        if (cityData 
+            && cityData.city 
+            && cityData.list
+            && cityData.city.coord) {
+            const { name, country } = cityData.city;
+            const { lat, lon } = cityData.city.coord;
             const id = cityData.city.id;
             const temps = cityData.list.map(weather => this.convertKelvinToCelcius(weather.main.temp));
             const pressures = cityData.list.map(weather => weather.main.pressure);
             const humidities = cityData.list.map(weather => weather.main.humidity);
-            console.log('temps', temps);
             return (
                 <tr key={id}>
-                    <td><strong>{name}, {country}</strong></td>
+                    <td>
+                        <strong>{name}, {country}</strong>
+                        <MyGoogleMap lat={lat} lon={lon} />
+                    </td>
                     <td>
                         <Chart data={temps} units="°C" color="#dc3545" />
                     </td>
@@ -59,7 +64,6 @@ class WeatherList extends Component {
                         {this.props.weather.map((cityData) => this.renderWeather(cityData))}
                     </tbody>
                 </table>
-                <MyGoogleMap />
             </div>
         );
     }
